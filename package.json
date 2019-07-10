@@ -1,18 +1,17 @@
 {
-  "name": "react-window",
+  "name": "@john-osullivan/react-window-dynamic-fork",
   "version": "1.9.0-alpha.1",
-  "description":
-    "React components for efficiently rendering large, scrollable lists and tabular data",
-  "author":
-    "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
+  "description": "Temporary Fork: see https://github.com/bvaughn/react-window",
+  "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
   "contributors": [
-    "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)"
+    "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
+    "John O'Sullivan <j.osullivan42@gmail.com> (https://github.com/john-osullivan/)"
   ],
   "license": "MIT",
   "homepage": "http://react-window.now.sh/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bvaughn/react-window.git"
+    "url": "git+https://github.com/bvaughn/react-window.git"
   },
   "bugs": {
     "url": "https://github.com/bvaughn/react-window/issues"
@@ -36,7 +35,10 @@
   ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "files": ["dist", "src/*.js"],
+  "files": [
+    "dist",
+    "src/*.js"
+  ],
   "scripts": {
     "flow": "flow check --max-warnings=0 src && flow check website",
     "precommit": "lint-staged",
@@ -45,10 +47,9 @@
     "lint": "eslint '**/*.js'",
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "build:flow":
-      "cp flow-template dist/index.cjs.js.flow && cp flow-template dist/index.esm.js.flow",
+    "build:flow": "cp flow-template dist/index.cjs.js.flow && cp flow-template dist/index.esm.js.flow",
     "build:source": "rollup -c",
-    "build": "del dist && mkdir dist && yarn build:flow && yarn build:source",
+    "build": "node ./check-for-update.js && del dist && mkdir dist && yarn build:flow && yarn build:source",
     "start": "rollup -c -w",
     "prepare": "yarn run build",
     "website:build": "cd website && yarn build",
@@ -56,7 +57,10 @@
     "website:run": "cd website && yarn start"
   },
   "lint-staged": {
-    "{website,src}/**/*.{js,json,css}": ["prettier --write", "git add"],
+    "{website,src}/**/*.{js,json,css}": [
+      "prettier --write",
+      "git add"
+    ],
     "**/*.js": "eslint --max-warnings 0"
   },
   "dependencies": {
@@ -94,6 +98,7 @@
     "flow-bin": "^0.101.0",
     "gh-pages": "^1.1.0",
     "lint-staged": "^7.0.5",
+    "npm-api": "^1.0.0",
     "prettier": "^1.12.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
@@ -105,6 +110,7 @@
     "rollup-plugin-commonjs": "^9.2.1",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-terser": "^5.1.0"
+    "rollup-plugin-terser": "^5.1.0",
+    "semver": "^6.2.0"
   }
 }

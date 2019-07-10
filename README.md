@@ -1,3 +1,28 @@
+# react-window-dynamic-fork
+
+This fork of [`react-window`](https://github.com/bvaughn/react-window/) is published from [`issues/6 @ bc9192b`](https://github.com/bvaughn/react-window/commit/bc9192bb258aff64ab643cb90e1f0ee55a955815).  I am publishing this fork in order to make the DynamicSizeList code available on npm, as installing directly from GitHub misbehaves in some CI/CD build environments.  My only actual modification is the `check-for-update.js` file which runs on `build`.  This is the full code of that file below; its only purpose is to check whether `1.9.0` (including an alpha version) has been published, exiting the process if it has.
+
+```javascript
+const npmApi = require('npm-api');
+const semver = require('semver');
+const process = require('process');
+const npm = new npmApi();
+const reactWindow = npm.repo('react-window');
+
+reactWindow.package().then((pkgJson) => {
+  let version = pkgJson.version;
+  if (semver.satisfies(semver.coerce(version), '>=1.9.0')) {
+    throw new Error(`react-window ${version} has been released, please uninstall this fork and reinstall react-window.`);
+  } else {
+    console.log(`\nMost recent react-window version is ${version}, DynamicSizeList not yet available on npm.`);
+    console.log('This fork package will inform you when react-window @ 1.9.0 is available. \n')
+  }
+}).catch((err) => {
+  console.log(`\n${err}\n`);
+  process.exit(1)
+});
+```
+
 # react-window
 
 > React components for efficiently rendering large lists and tabular data
